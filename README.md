@@ -15,6 +15,6 @@ Currently available:
   - Heal: Update player's max health amount on item pick up.
   - It generates proximity prompts for all pickups in the game granted they are tagged with "Pickup".
   - It tells the client to handle the pickup by updating the specified property (E.g. heal item increases player's health by 20).
-  - You can defined more attributes for the pickup and handle them (E.g. weak heal gives 10 while strong heal gives 50).
+  - You can define more attributes for the pickup and handle them (E.g. weak heal gives 10 while strong heal gives 50).
 
 I'm thinking of making a plugin for roblox engine to easily access these scripts from the engine but idk if I will have the time. So I will just upload them here from time to time and hope that I will have the opportunity to do the plugin.
