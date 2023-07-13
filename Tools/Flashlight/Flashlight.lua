@@ -5,7 +5,7 @@ local flashlight = script.Parent
 local light = flashlight.Model.Body.LightRing.SurfaceLight -- Path to a light source [https://create.roblox.com/docs/effects/light-sources]
 
 -- Events --
-local pickupEvent = ReplicatedStorage.GameEvents:WaitForChild("BatteryPickup")
+local event = ReplicatedStorage.GameEvents:WaitForChild("pickupEvent")
 
 -- Tool properties --
 local level = 1
@@ -57,15 +57,15 @@ function unequip()
 	update()
 end
 
-function increaseBattery(battery)
-	if currentBatteryAmount < batteryMaxAmount then
+function increaseBattery(player, battery)
+	-- Makes sure player can't use the item if they are already filled up.
+	if batteryCurrentAmount < batteryMaxAmount then
 		-- Calculate the new amount
-		local temp = currentBatteryAmount + (currentBatteryAmount * batteries[battery:GetAttribute("Strength")])
-		-- Shave off extra
-		local newAmount = temp - (temp - batteryMaxAmount)
-		-- Update amount
-		currentBatteryAmount = newAmount
-		print("Battery Filled! " .. currentBatteryAmount)
+		local increasedAmount = batteryCurrentAmount + (batteryCurrentAmount * batteries[battery:GetAttribute("Strength")])
+		-- Return new amount without surpassing the maximum amount
+		batteryCurrentAmount = math.min(increasedAmount, batteryMaxAmount)
+
+		print("Battery Filled! " .. batteryCurrentAmount)
 		battery:Destroy()
 	else
 		print("You want to use the batteries? Let me get it approved first.")
@@ -85,4 +85,4 @@ end
 -- Connections
 flashlight.Activated:Connect(toggleLight)
 flashlight.Unequipped:Connect(unequip)
-pickupEvent.OnClientEvent:Connect(increaseBattery)
+event.OnClientEvent:Connect(increaseBattery)
