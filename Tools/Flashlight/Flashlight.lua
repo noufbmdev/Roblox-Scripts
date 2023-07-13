@@ -1,7 +1,11 @@
+-- Dependencies
 local SoundService = game:GetService("SoundService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local flashlight = script.Parent
 local light = flashlight.Model.Body.LightRing.SurfaceLight -- Path to a light source [https://create.roblox.com/docs/effects/light-sources]
+
+-- Events --
+local pickupEvent = ReplicatedStorage.GameEvents:WaitForChild("BatteryPickup")
 
 -- Tool properties --
 local level = 1
@@ -20,9 +24,6 @@ local batteries = {
 	["Medium"] = 100,
 	["Strong"] = 1000
 }
-
--- Events --
-local pickupEvent = ReplicatedStorage.GameEvents:WaitForChild("BatteryPickup")
 
 function update()
 	-- Play light switch sound
